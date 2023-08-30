@@ -40,7 +40,7 @@
 
 	async function fetchCompletion(message: string) {
 		try {
-			const res = await fetch(`${import.meta.env.PUBLIC_FUNCTIONS_ENDPOINT}/ai-stream`, {
+			const res = await fetch(`/.netlify/functions/ai-stream`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
