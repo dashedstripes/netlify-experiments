@@ -1,5 +1,5 @@
-import { type Handler, stream, type HandlerContext, type HandlerEvent } from '@netlify/functions'
-import { OpenAIStream, StreamingTextResponse, streamToResponse } from 'ai'
+import { type Handler, stream } from '@netlify/functions'
+import { OpenAIStream } from 'ai'
 import { Configuration, OpenAIApi } from 'openai-edge'
 
 const config = new Configuration({
