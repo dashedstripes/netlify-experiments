@@ -2,7 +2,7 @@ import { useChat } from 'ai/react'
 
 export default function ChatAI() {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: '.netlify/functions/ai-sdk'
+    api: '/.netlify/functions/ai-sdk'
   })
 
   return (
