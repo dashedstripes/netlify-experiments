@@ -10,6 +10,8 @@ const openai = new OpenAIApi(config)
 function netlifyStream(f: (event: HandlerEvent, context: HandlerContext) => Promise<StreamingTextResponse>): Handler {
   return stream(async (event, context) => {
     const ff = await f(event, context);
+
+    console.log(ff.body)
     return {
       headers: {
         'content-type': 'text/event-stream',
