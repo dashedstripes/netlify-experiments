@@ -1,5 +1,5 @@
 import { type Handler, stream, type HandlerContext, type HandlerEvent } from '@netlify/functions'
-import { OpenAIStream, StreamingTextResponse } from 'ai'
+import { OpenAIStream, StreamingTextResponse, streamToResponse } from 'ai'
 import { Configuration, OpenAIApi } from 'openai-edge'
 
 const config = new Configuration({
@@ -7,19 +7,7 @@ const config = new Configuration({
 })
 const openai = new OpenAIApi(config)
 
-function netlifyStream(f: (event: HandlerEvent, context: HandlerContext) => Promise<StreamingTextResponse>): Handler {
-  // @ts-ignore
-  return stream(async (event, context) => {
-    const ff = await f(event, context);
-    return {
-      headers: ff.headers,
-      statusCode: 200,
-      body: ff.body
-    }
-  })
-}
-
-export const handler: Handler = netlifyStream(async (event, context) => {
+export const handler: Handler = stream(async (event, context) => {
   const { messages } = await JSON.parse(event?.body as string);
 
   const response = await openai.createChatCompletion({
@@ -34,5 +22,11 @@ export const handler: Handler = netlifyStream(async (event, context) => {
     }
   })
 
-  return new StreamingTextResponse(stream)
+  return {
+    headers: {
+      'content-type': 'text/event-stream'
+    },
+    statusCode: 200,
+    body: stream
+  }
 })
