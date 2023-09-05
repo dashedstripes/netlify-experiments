@@ -23,9 +23,6 @@ export const handler: Handler = stream(async (event, context) => {
   })
 
   return {
-    headers: {
-      'content-type': 'text/event-stream'
-    },
     statusCode: 200,
     body: stream
   }
