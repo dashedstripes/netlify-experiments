@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ChatAI from '../components/ChatAI';
+---
+
+<Layout title="Netlify Experiments">
+	<main>
+		<div class="p-8 fixed top-0 left-0 w-full">
+			<a href="/">Netlify Experiments</a>
+		</div>
+		<ChatAI client:only="react"/>
+	</main>
+</Layout>
